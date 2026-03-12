@@ -60,6 +60,15 @@ class LinkedList{
       }
     }
   }
+
+  // method to make the list circular
+  circular = ()=>{
+    let curr = this.head;
+    while(curr.next != null){
+      curr = curr.next;
+    }
+    curr.next = this.head;
+  }
 }
 
 const ll = new LinkedList();
@@ -71,8 +80,13 @@ ll.reverseList();
 ll.prepend(2);
 ll.prepend(4);
 ll.deleteNodesWithValue(4);
+ll.circular();
+
+// printing to test the methods
 let printNode = ll.head;
-while (printNode != null){
+let circleCount = 0;
+while (printNode.next != null  && circleCount < 3){
+  if (printNode.next == ll.head) circleCount++;
   console.log(printNode.val + "-->");
   printNode = printNode.next;
 }

@@ -90,3 +90,36 @@ while (printNode.next != null  && circleCount < 3){
   console.log(printNode.val + "-->");
   printNode = printNode.next;
 }
+
+
+// function to clone a linked list with given head node.
+
+function copyLinkedListWithRandomPointer(printNode) {
+      // make a pointer to new list
+      let newListPointer = new Node(0);
+      // make a pointer which will move with iteration
+      let newListNode = newListPointer;
+
+      // create a map to link old node and corresponding new node in duplicate list
+      const myMap = new Map();
+
+      // iterate the given list and create duplicate new list without random value in each node, also fill the map with key: new node, value: old node
+      let curr = printNode;
+      while(curr != null){
+            let newNode = new Node(curr.val);
+            myMap.set(curr, newNode);
+            newListNode.next = newNode;
+            newListNode = newListNode.next;
+            curr = curr.next;
+      }
+
+      // iterate the given list again and fill the newNode random values with the help of map
+      let old = printNode;
+      let clone = newListPointer.next;
+      while(old != null){
+            clone.random = myMap.get(old.random);
+            old = old.next;
+            clone = clone.next;
+      }
+      return newListPointer.next;
+}
